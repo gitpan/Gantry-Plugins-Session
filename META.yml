@@ -1,0 +1,8 @@
+--- #YAML:1.0
+name: Gantry-Plugins-Session
+version: 0.01
+author:
+  - Kevin L. Esteb <kesteb@wsipc.org>
+abstract: Plugin for cookie based session management
+license: perl
+generated_by: Module::Build version 0.2611, without YAML.pm
