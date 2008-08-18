@@ -18,7 +18,7 @@ our @EXPORT = qw(
     do_cookiecheck
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 my %registered_callbacks;
 my $lock =  '_LOCK_';
 
@@ -54,18 +54,17 @@ sub session_init {
     my $cookie;
     my $session;
     my $app_rootp = $gobj->app_rootp || "";
-	my $cookiecheck = $app_rootp . '/cookiecheck';
+    my $cookiecheck = $app_rootp . '/cookiecheck';
     my $regex = qr/^${app_rootp}\/(cookiecheck).*/;
     my $secret = $gobj->fish_config('session_secret') || 'w3s3cR7';
     my $crypt = Gantry::Utils::Crypt->new({'secret' => $secret});
-
 
     return if ($gobj->uri =~ /^$regex/);
 
     # check to see if a previous session is active
 
-    if (defined($session = $gobj->get_cookies('_session_id_'))) {
-		
+    if ($session = $gobj->get_cookies('_session_id_')) {
+
         # OK, store the session id
 
         $gobj->session_id($session);
@@ -84,7 +83,7 @@ sub session_init {
             }
         );
 
-        $gobj->relocate($cookiecheck);
+          $gobj->relocate($cookiecheck);
 
     }
 
@@ -96,15 +95,14 @@ sub do_cookiecheck {
     my $session;
     my $app_rootp = $gobj->app_rootp || "/";
 
-
     # if cookies are enabled they should be returned on the redirect
 
-    if (defined($session = $gobj->get_cookies('_session_id_'))) {
+    if ($session = $gobj->get_cookies('_session_id_')) {
 
         # Ok, redirect them back to the applicaion
 
-		$gobj->session_inited(1);
-		$gobj->session_id($session);
+        $gobj->session_inited(1);
+        $gobj->session_id($session);
         $gobj->session_store($lock, '0');
         $gobj->relocate($app_rootp);
 
@@ -177,7 +175,7 @@ sub session_update {
     $gobj->cache_namespace($session);
     $gobj->cache_del($key);
     $gobj->cache_set($key, $value);
-    
+
 }
 
 #-----------------------------------------------------------
@@ -212,12 +210,13 @@ sub session_lock {
     my $stat = 0;
     my $session = $gobj->session_id();
 
+
     $attempts = 30 if (!defined($attempts));
     $gobj->cache_namespace($session);
 
     for (my $x = 0; $x < $attempts; $x++) {
 
-        $value = $gobj->cache_get($lock);
+        $value = $gobj->cache_get($lock) || 0;
         if ($value eq '1') {
 
             sleep(1);
