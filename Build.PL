@@ -49,6 +49,7 @@ my $build = $subclass->new(
     requires           => {
         'Gantry'                    => '3.52',
         'Gantry::Plugins::Cache'    => 0,
+        'Crypt::CBC'                => 0,
     },
     build_requires      => {
         'Test::More'          => 0,

@@ -18,7 +18,7 @@ our @EXPORT = qw(
     do_cookiecheck
 );
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 my %registered_callbacks;
 my $lock =  '_LOCK_';
 
