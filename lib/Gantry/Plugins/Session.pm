@@ -18,7 +18,7 @@ our @EXPORT = qw(
     do_cookiecheck
 );
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 my %registered_callbacks;
 my $lock =  '_LOCK_';
 
@@ -59,7 +59,7 @@ sub session_init {
     my $secret = $gobj->fish_config('session_secret') || 'w3s3cR7';
     my $crypt = Gantry::Utils::Crypt->new({'secret' => $secret});
 
-    return if ($gobj->uri =~ /^$regex/);
+    return if ($gobj->fish_uri =~ /^$regex/);
 
     # check to see if a previous session is active
 

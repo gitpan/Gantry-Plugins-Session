@@ -1,4 +1,4 @@
-Gantry-Plugins-Session version 0.02
+Gantry-Plugins-Session version 0.03
 ===================================
 
 This module provides a way to create and track sessions for the Gantry
@@ -19,7 +19,8 @@ This module requires these other modules and libraries:
 
   Gantry
   Gantry::Plugins::Cache
-
+  Crypt::CBC
+  
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2008 by Kevin L. Esteb
